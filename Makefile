@@ -16,8 +16,8 @@ version: .elpa
 	$(EMACS) $(BATCH) --version
 
 lint: .elpa
-	$(EMACS) $(BATCH) -l elisp-lint.el -f elisp-lint-files-batch $(ELS)
-	$(EMACS) $(BATCH) -l elisp-lint.el -f elisp-lint-files-batch \
+	$(EMACS) $(BATCH) -l osx-plist.el -f elisp-lint-files-batch $(ELS)
+	$(EMACS) $(BATCH) -l osx-plist.el -f elisp-lint-files-batch \
 	                  --no-byte-compile \
 	                  --no-package-format \
 	                  --no-checkdoc \
