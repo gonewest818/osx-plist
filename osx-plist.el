@@ -3,8 +3,9 @@
 ;; Copyright (C) 2005  Edward O'Connor <ted@oconnor.cx>
 
 ;; Author: Edward O'Connor <ted@oconnor.cx>
+;; Maintainer: Neil Okamoto <neil.okamoto+melpa@gmail.com>
 ;; Keywords: convenience
-;; Version: 1.0.0
+;; Version: 2.0.0
 
 ;; This file is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the
@@ -23,20 +24,21 @@
 
 ;;; Commentary:
 
-;; Simple parser for Mac OS X plist files. The main entry point is
-;; `osx-plist-parse-file' (which see). As a useful example, code is
-;; included to update Emacs' environment by parsing your
-;; ~/.MacOSX/environment.plist file (see `osx-plist-update-environment').
+;; Simple parser for Mac OS X plist files.  The main entry points are
+;; `osx-plist-parse-file' and `osx-plist-parse-buffer'.
+
+;;; Changelog:
+
+;; v2.0.0 (2020) Add support for integer and real values
+;;               Breaking change is that the original environment.plist
+;;               capability has been removed (see README.md)
+
+;; v1.0.0 (2005) Published by Edward O'Connor 2005, documented on
+;;               https://www.emacswiki.org/emacs/MacOSXPlist
 
 ;;; Code:
 
 (require 'xml)
-
-;; Placate the byte compiler and elint
-(defvar exec-path)
-
-(defvar osx-env-file "~/.MacOSX/environment.plist"
-  "File in which Mac OS X stores your environment.")
 
 (defun osx-plist-process-array (xml)
   "Process the plist array element XML."
@@ -72,6 +74,14 @@
           ((eq name 'true)  t)
           ((memq name '(key string))
            (apply 'concat children))
+          ((memq name '(integer real))
+           (string-to-number (car children)))
+          ;; TODO: research and address date
+          ;; ((eq name date)
+          ;;  (osx-plist-process-date node))
+          ;; TODO: research and address data
+          ;; ((eq name data)
+          ;;  (osx-plist-process-data node))
           ((eq name 'dict)
            (osx-plist-process-dict node))
           ((eq name 'array)
@@ -81,29 +91,22 @@
   "Non-null if XML appears to be an Apple plist."
   (and xml (listp xml) (eq (xml-node-name xml) 'plist)))
 
+(defun osx-plist-process-xml (xml)
+  "Run the parser on the parsed XML containing the plist data. "
+  (let* ((node (car xml))
+         (child (car (or (xml-get-children node 'dict)
+                         (xml-get-children node 'array)))))
+    (when (osx-plist-p node)
+      (osx-plist-node-value child))))
+
 (defun osx-plist-parse-file (file)
   "Parse the plist file FILE into an elisp hash table."
-  (let ((xml (car (xml-parse-file file))))
-    (when (osx-plist-p xml)
-      (osx-plist-node-value (car (xml-get-children xml 'dict))))))
+  (osx-plist-process-xml (xml-parse-file file)))
 
-;; Example code: initialize Emacs' environment based on your
-;; environment.plist.
-
-(defun osx-plist-update-exec-path ()
-  "Update `exec-path' from the PATH environment variable."
-  (let ((path (getenv "PATH")))
-    (mapc (lambda (dir)
-            (add-to-list 'exec-path dir))
-          (parse-colon-path path)))
-  exec-path)
-
-(defun osx-plist-update-environment ()
-  "Load environment variables in `osx-env-file' into Emacs' environment."
-  (let ((plist (osx-plist-parse-file osx-env-file)))
-    (maphash 'setenv plist)
-    (when (gethash "PATH" plist)
-      (osx-plist-update-exec-path))))
+(defun osx-plist-parse-buffer (&optional buffer)
+  "Parse the plist in buffer BUFFER into an elisp hash table.
+If BUFFER is nil then process the current buffer instead."
+  (osx-plist-process-xml (xml-parse-region nil nil buffer)))
 
 (provide 'osx-plist)
 ;;; osx-plist.el ends here
