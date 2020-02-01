@@ -92,7 +92,7 @@
   (and xml (listp xml) (eq (xml-node-name xml) 'plist)))
 
 (defun osx-plist-process-xml (xml)
-  "Run the parser on the parsed XML containing the plist data. "
+  "Run the parser on the parsed XML containing the plist data."
   (let* ((node (car xml))
          (child (car (or (xml-get-children node 'dict)
                          (xml-get-children node 'array)))))
