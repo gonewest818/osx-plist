@@ -30,7 +30,7 @@
 
 ;;; Changelog:
 
-;; v2.0.0 (2020) Add support for integer and real values
+;; v2.0.0 (2020) Support plist types: integer, real, date, and data
 ;;               Breaking change is that the original environment.plist
 ;;               capability has been removed (see README.md)
 
@@ -40,6 +40,7 @@
 ;;; Code:
 
 (require 'xml)
+(require 'parse-time)
 
 (defun osx-plist-process-array (xml)
   "Process the plist array element XML."
@@ -77,12 +78,10 @@
            (apply 'concat children))
           ((memq name '(integer real))
            (string-to-number (car children)))
-          ;; TODO: research and address date
-          ;; ((eq name date)
-          ;;  (osx-plist-process-date node))
-          ;; TODO: research and address data
-          ;; ((eq name data)
-          ;;  (osx-plist-process-data node))
+          ((eq name 'date)
+           (decode-time (parse-iso8601-time-string (car children))))
+          ((eq name 'data)
+           (base64-decode-string (apply 'concat children)))
           ((eq name 'dict)
            (osx-plist-process-dict node))
           ((eq name 'array)

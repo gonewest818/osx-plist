@@ -4,6 +4,8 @@
 (require 'osx-plist)
 (require 'buttercup)
 
+(setenv "TZ" "UTC0") ; make sure dates match their canonical
+
 (describe "the osx-plist-p predicate"
   (it "is truthy when the node is a plist"
     (expect (osx-plist-p '(plist nil nil))
@@ -21,8 +23,10 @@
     (let* ((p (osx-plist-parse-file file))
            (w (aref p 0)))
       (expect (length p) :to-be 5)
-      (expect (gethash "BSSID" w) :to-match "^ff:ff:aa:c4:5c:73$")
       (expect (gethash "BEACON_INT" w) :to-be 100)
+      (expect (gethash "BSSID" w) :to-match "^ff:ff:aa:c4:5c:73$")
+      (expect (gethash "IE" w) :to-match "^Lorem ipsum dolor sit amet$")
+      (expect (gethash "TEST_DATE" w) :to-equal '(45 23 1 7 6 2019 5 nil 0))
       (expect (type-of (gethash "RATES" w)) :to-be 'vector)
       (expect (type-of (gethash "HT_IE" w)) :to-be 'hash-table))))
 
@@ -33,8 +37,10 @@
     (let* ((p (osx-plist-parse-buffer buffer))
            (w (aref p 0)))
       (expect (length p) :to-be 5)
-      (expect (gethash "BSSID" w) :to-match "^ff:ff:aa:c4:5c:73$")
       (expect (gethash "BEACON_INT" w) :to-be 100)
+      (expect (gethash "BSSID" w) :to-match "^ff:ff:aa:c4:5c:73$")
+      (expect (gethash "IE" w) :to-match "^Lorem ipsum dolor sit amet$")
+      (expect (gethash "TEST_DATE" w) :to-equal '(45 23 1 7 6 2019 5 nil 0))
       (expect (type-of (gethash "RATES" w)) :to-be 'vector)
       (expect (type-of (gethash "HT_IE" w)) :to-be 'hash-table))))
 

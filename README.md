@@ -28,7 +28,7 @@ original version of this package.
 ## Changelog:
 
 - v2.0.0 (2020)
-  - Add support for integer and real values
+  - Complete support for plist types:  integer, real, date, and base64 data
   - Breaking change: drop environment.plist support
 - v1.0.0 (2005)
   - Published by Edward O'Connor 2005 [EmacsWiki](https://www.emacswiki.org/emacs/MacOSXPlist)

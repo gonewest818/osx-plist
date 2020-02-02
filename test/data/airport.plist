@@ -3,6 +3,8 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>TEST_DATE</key>
+		<date>2019-06-07T01:23:45Z</date>
 		<key>80211D_IE</key>
 		<dict>
 			<key>IE_KEY_80211D_CHAN_INFO_ARRAY</key>
@@ -91,7 +93,7 @@
 		</dict>
 		<key>IE</key>
 		<data>
-                dataelided
+                TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQ=
 		</data>
 		<key>NOISE</key>
 		<integer>0</integer>
@@ -248,7 +250,7 @@
 		</dict>
 		<key>IE</key>
 		<data>
-                dataelided
+                TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQ=
 		</data>
 		<key>NOISE</key>
 		<integer>0</integer>
@@ -411,7 +413,7 @@
 		</dict>
 		<key>IE</key>
 		<data>
-                dataelided
+                TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQ=
 		</data>
 		<key>NOISE</key>
 		<integer>0</integer>
@@ -579,7 +581,7 @@
 		</dict>
 		<key>IE</key>
 		<data>
-                dataelided
+                TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQ=
 		</data>
 		<key>NOISE</key>
 		<integer>0</integer>
@@ -735,7 +737,7 @@
 		</dict>
 		<key>IE</key>
 		<data>
-                dataelided
+                TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQ=
 		</data>
 		<key>NOISE</key>
 		<integer>0</integer>
