@@ -6,6 +6,8 @@
 ;; Author: Edward O'Connor <ted@oconnor.cx>
 ;; Maintainer: Neil Okamoto <neil.okamoto+melpa@gmail.com>
 ;; Keywords: convenience
+;; Package-Requires: ((emacs "25.1"))
+;; URL: https://github.com/gonewest818/osx-plist.el
 ;; Version: 2.0.0
 
 ;; This file is free software; you can redistribute it and/or modify it
