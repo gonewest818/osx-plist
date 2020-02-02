@@ -1,6 +1,7 @@
-;;; osx-plist.el --- Apple plist file parser
+;;; osx-plist.el --- Apple plist file parser  -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2005  Edward O'Connor <ted@oconnor.cx>
+;; Copyright (C) 2020  Neil Okamoto <neil.okamoto+melpa@gmail.com>
 
 ;; Author: Edward O'Connor <ted@oconnor.cx>
 ;; Maintainer: Neil Okamoto <neil.okamoto+melpa@gmail.com>
