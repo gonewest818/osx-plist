@@ -58,8 +58,7 @@
     (mapc
      (lambda (child)
        (when (not (stringp child)) ; ignore inter-tag whitespace
-         (let ((name (xml-node-name child))
-               (children (xml-node-children child)))
+         (let ((name (xml-node-name child)))
            (if (eq name 'key)
                (setq current-key (osx-plist-node-value child))
              (puthash current-key
