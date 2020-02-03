@@ -1,9 +1,9 @@
 ;;; osx-plist.el --- Apple plist file parser  -*- lexical-binding: t -*-
 
-;; Copyright (C) 2005  Edward O'Connor <ted@oconnor.cx>
+;; Copyright (C) 2005  Theresa O'Connor <tess@oconnor.cx>
 ;; Copyright (C) 2020  Neil Okamoto <neil.okamoto+melpa@gmail.com>
 
-;; Author: Edward O'Connor <ted@oconnor.cx>
+;; Author: Theresa O'Connor <tess@oconnor.cx>
 ;; Maintainer: Neil Okamoto <neil.okamoto+melpa@gmail.com>
 ;; Keywords: convenience
 ;; Package-Requires: ((emacs "25.1"))
@@ -36,7 +36,7 @@
 ;;               Breaking change is that the original environment.plist
 ;;               capability has been removed (see README.md)
 
-;; v1.0.0 (2005) Published by Edward O'Connor 2005, documented on
+;; v1.0.0 (2005) First published, documented on
 ;;               https://www.emacswiki.org/emacs/MacOSXPlist
 
 ;;; Code:
