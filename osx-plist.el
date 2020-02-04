@@ -101,13 +101,23 @@
       (osx-plist-node-value child))))
 
 (defun osx-plist-parse-file (file)
-  "Parse the plist file FILE into an elisp hash table."
-  (osx-plist-process-xml (xml-parse-file file)))
+  "Parse the plist file FILE into an elisp hash table.
+If the FILE does not contain valid XML, return nil."
+  (condition-case err
+      (osx-plist-process-xml (xml-parse-file file))
+    (error
+     (message "osx-plist caught: %s" (error-message-string err))
+     nil)))
 
 (defun osx-plist-parse-buffer (&optional buffer)
   "Parse the plist in buffer BUFFER into an elisp hash table.
-If BUFFER is nil then process the current buffer instead."
-  (osx-plist-process-xml (xml-parse-region nil nil buffer)))
+If BUFFER is nil then process the current buffer instead.
+If BUFFER does not contain valid XML, return nil."
+  (condition-case err
+      (osx-plist-process-xml (xml-parse-region nil nil buffer))
+    (error
+     (message "osx-plist caught: %s" (error-message-string err))
+     nil)))
 
 (provide 'osx-plist)
 ;;; osx-plist.el ends here
