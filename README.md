@@ -7,7 +7,7 @@ Apple plist file parser
 [![CircleCI](https://img.shields.io/circleci/project/github/gonewest818/osx-plist.svg)](https://circleci.com/gh/gonewest818/osx-plist)
 [![codecov](https://codecov.io/gh/gonewest818/osx-plist/branch/master/graph/badge.svg)](https://codecov.io/gh/gonewest818/osx-plist)
 
-Copyright (C) 2005  Edward O'Connor <ted@oconnor.cx>
+Copyright (C) 2005  Theresa O'Connor <tess@oconnor.cx>
 
 Copyright (C) 2020  Neil Okamoto <neil.okamoto+melpa@gmail.com>.
 
@@ -37,7 +37,7 @@ original version of this package.
   - CircleCI pipeline including lint, test cases, and coverage analysis 
   - Breaking change: drop environment.plist example code
 - v1.0.0 (2005)
-  - Published by Edward O'Connor 2005 [EmacsWiki](https://www.emacswiki.org/emacs/MacOSXPlist)
+  - First published, documented on [EmacsWiki](https://www.emacswiki.org/emacs/MacOSXPlist)
 
 ## License
 
