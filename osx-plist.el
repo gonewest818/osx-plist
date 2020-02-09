@@ -48,10 +48,10 @@
   "Process the plist array element XML."
   (let ((real-children (list)))
     (mapc (lambda (child)
-            (when (not (stringp child))
+            (unless (stringp child)
               (push (osx-plist-node-value child) real-children)))
           (xml-node-children xml))
-    (apply 'vector (nreverse real-children))))
+    (apply #'vector (nreverse real-children))))
 
 (defun osx-plist-process-dict (xml)
   "Place the key-value pairs of plist XML into HASH."
@@ -59,7 +59,7 @@
         (current-key nil))
     (mapc
      (lambda (child)
-       (when (not (stringp child)) ; ignore inter-tag whitespace
+       (unless (stringp child)          ; ignore inter-tag whitespace
          (let ((name (xml-node-name child)))
            (if (eq name 'key)
                (setq current-key (osx-plist-node-value child))
@@ -76,13 +76,13 @@
     (cond ((eq name 'false) nil)
           ((eq name 'true)  t)
           ((memq name '(key string))
-           (apply 'concat children))
+           (apply #'concat children))
           ((memq name '(integer real))
            (string-to-number (car children)))
           ((eq name 'date)
            (decode-time (parse-iso8601-time-string (car children))))
           ((eq name 'data)
-           (base64-decode-string (apply 'concat children)))
+           (base64-decode-string (apply #'concat children)))
           ((eq name 'dict)
            (osx-plist-process-dict node))
           ((eq name 'array)
