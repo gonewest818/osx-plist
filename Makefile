@@ -9,6 +9,15 @@ BACKUPS = $(ELS:.el=.el~) $(TESTS:.el=.el~)
 .PHONY: version lint test clean cleanelpa
 
 .elpa:
+	mkdir -p .emacs/elpa/gnupg && \
+	chmod 700 .emacs/elpa/gnupg && \
+	echo "disable-ipv6" > .emacs/elpa/gnupg/dirmngr.conf && \
+	for i in {1..3}; do \
+	gpg --keyserver keyserver.ubuntu.com \
+	    --homedir .emacs/elpa/gnupg \
+	    --recv-keys 066DAFCB81E42C40 \
+	    && break || sleep 15; \
+	done
 	$(EMACS) $(BATCH)
 	touch .elpa
 
@@ -16,12 +25,7 @@ version: .elpa
 	$(EMACS) $(BATCH) --version
 
 lint: .elpa
-	$(EMACS) $(BATCH) -l osx-plist.el -f elisp-lint-files-batch $(ELS)
-	$(EMACS) $(BATCH) -l osx-plist.el -f elisp-lint-files-batch \
-	                  --no-byte-compile \
-	                  --no-package-format \
-	                  --no-checkdoc \
-	                  --no-check-declare $(TESTS)
+	$(EMACS) $(BATCH) -l osx-plist.el -f elisp-lint-files-batch $(ELS) $(TESTS)
 
 test: .elpa
 	$(EMACS) $(BATCH) -f buttercup-run-discover
@@ -35,6 +39,6 @@ submit-coverage: coverage.json
 clean:
 	rm -f $(OBJECTS) $(BACKUPS) osx-plist-autoloads.el* coverage.json
 
-cleanelpa: clean
+cleanall: clean
 	rm -rf .emacs/elpa .emacs/quelpa .emacs/.emacs-custom.el* .elpa
 

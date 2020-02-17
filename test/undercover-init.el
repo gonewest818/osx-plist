@@ -7,4 +7,10 @@
               (:report-file "coverage.json")
               (:send-report nil)))
 
+
+;; Local Variables:
+;; elisp-lint-ignored-validators:
+;; ("package-lint" "byte-compile" "check-declare" "checkdoc")
+;; End:
+
 ;;; undercover-init.el ends here

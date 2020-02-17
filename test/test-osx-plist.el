@@ -53,4 +53,10 @@
            (p (osx-plist-parse-buffer b)))
       (expect p :to-be nil))))
 
+
+;; Local Variables:
+;; elisp-lint-ignored-validators:
+;; ("package-lint" "byte-compile" "check-declare" "checkdoc")
+;; End:
+
 ;;; test-osx-plist.el ends here
